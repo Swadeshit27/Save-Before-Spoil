@@ -2,6 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Wrapper from "./layout/Wrapper";
+import { CssSyntaxError } from "postcss";
+import CsvUploader from "./pages/CsvUploader";
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/upload" element={<CsvUploader />} />
       </Routes>
     </div>
   );
