@@ -1,18 +1,15 @@
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
 
-import { Route, Routes } from 'react-router-dom'
-import Login from './pages/Login' 
-import CsvUploader from './pages/CsvUploader'
+import Login from "./pages/Login";
 
 function App() {
-
   return (
-    <div className='w-full min-h-screen '>
-      <Routes>
-        <Route path='/login' element={<Login />} />
-        <Route path='/csvupload' element={<CsvUploader/>}/>
-      </Routes>
-    </div>
-  )
+    <>
+      <Login />
+    </>
+  );
 }
 
-export default App
+export default App;

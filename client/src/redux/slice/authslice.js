@@ -1,48 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { app } from "../../firebase";
-const auth = getAuth(app);
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+    status: false,
+    userData: null,
+};
 
 const authSlice = createSlice({
     name: "auth",
-    initialState: {
-        user: null,
-        error: null,
-    },
+    initialState,
     reducers: {
-        signUp: async (state, action) => {
-            try {
-                const { email, password } = action.payload;
-                const userCredential = await createUserWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
-                state.user = userCredential.user;
-                state.error = null;
-            } catch (error) {
-                state.user = null;
-                state.error = error.message;
-            }
+        login: (state, action) => {
+            state.status = true;
+            state.userData = action.payload.userData;
         },
-        signIn: async (state, action) => {
-            try {
-                const { email, password } = action.payload;
-                const userCredential = await signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
-                state.user = userCredential.user;
-                state.error = null;
-            } catch (error) {
-                state.user = null;
-                state.error = error.message;
-            }
-        },
-    },
+        logout: (state) => {
+            state.status = false;
+            state.userData = null;
+        }
+    }
 });
 
-export const { signUp, signIn } = authSlice.actions;
-
+export const { login, logout } = authSlice.actions;
 export default authSlice.reducer;
