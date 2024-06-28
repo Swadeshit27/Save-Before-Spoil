@@ -35,7 +35,6 @@ export default function Login() {
                     </form>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-
                     <Button>Login</Button>
                 </CardFooter>
             </Card>
