@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Papa from 'papaparse';
 import { ref, set } from 'firebase/database';
-import { database } from '../../firebase';
+import { database } from '../../firebase/firebase';
 
 function CsvUploader() {
     const [data, setData] = useState([]);
