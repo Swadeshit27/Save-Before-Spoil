@@ -1,6 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Dashboardnew from "./pages/Dashboardnew";
+import Landing from "./pages/Landing";
+import Signup from "./pages/Signup";
 import Wrapper from "./layout/Wrapper";
 import CsvUploader from "./pages/CsvUploader";
 import Options from "./pages/Options";
@@ -14,11 +17,12 @@ function App() {
           path="/"
           element={
             <Wrapper>
-              <Dashboard />
+              <Dashboardnew />
             </Wrapper>
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/upload" element={<CsvUploader />} />
         <Route path="/options"
           element={
@@ -32,6 +36,7 @@ function App() {
               <DonateToFoodBank />
             </Wrapper>
           } />
+        <Route path="/Landing" element={<Landing />} />
       </Routes>
     </div>
   );

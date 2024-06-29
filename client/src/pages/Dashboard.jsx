@@ -8,7 +8,7 @@ import {
     Table,
     TextInput,
 } from "flowbite-react";
-import React from "react";
+
 import { HiSearch } from "react-icons/hi";
 import { FaFilter } from "react-icons/fa";
 import Foods from "../data/product.json";
@@ -21,11 +21,11 @@ import { addIngredient } from "@/redux/slice/itemsSlice";
 import { useNavigate } from "react-router-dom";
 
 function daysLeft(expireDateString) {
-    const expireDate = new Date(expireDateString);
-    const currentDate = new Date();
-    const timeDifference = expireDate.getTime() - currentDate.getTime();
-    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
-    return daysDifference;
+  const expireDate = new Date(expireDateString);
+  const currentDate = new Date();
+  const timeDifference = expireDate.getTime() - currentDate.getTime();
+  const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+  return daysDifference;
 }
 
 const Dashboard = () => {
