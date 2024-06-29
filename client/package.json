@@ -1,21 +1,27 @@
 {
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "node lib/index.js",
+    "build": "vite build",
+    "build:watch": "tsc --watch",
+    "dev": "vite",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
   "name": "client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
-  },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@reduxjs/toolkit": "^2.2.5",
+    "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "firebase": "^10.12.2",
     "flowbite-react": "^0.10.1",
     "init": "^0.1.2",
@@ -29,7 +35,8 @@
     "react-router-dom": "^6.24.0",
     "shadcn-ui": "^0.8.0",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
@@ -42,6 +49,7 @@
     "eslint-plugin-react-refresh": "^0.4.7",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.4",
+    "typescript": "^5.5.2",
     "vite": "^5.3.1"
   }
 }
