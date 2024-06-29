@@ -13,6 +13,7 @@ import DonateToFoodBank from "./pages/DonateToFoodBank";
 import { useSelector } from "react-redux";
 import { Spinner } from "flowbite-react";
 import PublicRoute from "./components/PublicRoute";
+import ChatWithFoodBank from "./pages/ChatWithFoodBank";
 
 function App() {
   const { loading } = useSelector(state => state.auth);
@@ -31,9 +32,17 @@ function App() {
         <Route
           path="/dashboard-2"
           element={
-            <PublicRoute>
+            // <PublicRoute>
               <Dashboard />
-            </PublicRoute>
+            // </PublicRoute>
+          }
+        />
+        <Route
+          path="/chat/:id"
+          element={
+            // <PublicRoute>
+              <ChatWithFoodBank />
+            // </PublicRoute>
           }
         />
         <Route path="/login" element={<Login />} />

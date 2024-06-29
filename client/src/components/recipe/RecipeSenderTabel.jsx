@@ -1,9 +1,8 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
 
-export default function Component() {
+export default function RecipeTable() {
     const products = [
         {
             name: "Whole Wheat Bread",
@@ -43,7 +42,7 @@ export default function Component() {
         },
     ]
     return (
-        <Card>
+        <Card className="max-w-[50%] ms-auto">
             <CardHeader>
                 <CardTitle>Expiring Products</CardTitle>
                 <CardDescription>
@@ -56,11 +55,7 @@ export default function Component() {
                         <TableRow>
                             <TableHead>Product</TableHead>
                             <TableHead>Price</TableHead>
-                            <TableHead>Days Remaining</TableHead>
-                            <TableHead>Used For</TableHead>
-                            <TableHead>
-                                <span className="sr-only">Contact</span>
-                            </TableHead>
+                            <TableHead>Days Remaining</TableHead> 
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -68,11 +63,7 @@ export default function Component() {
                             <TableRow key={index}>
                                 <TableCell className="font-medium">{product.name}</TableCell>
                                 <TableCell>{product.price}</TableCell>
-                                <TableCell>{product.daysRemaining}</TableCell>
-                                <TableCell>{product.usedFor}</TableCell>
-                                <TableCell>
-                                    <Button size="sm">Contact</Button>
-                                </TableCell>
+                                <TableCell>{product.daysRemaining}</TableCell> 
                             </TableRow>
                         ))}
                     </TableBody>

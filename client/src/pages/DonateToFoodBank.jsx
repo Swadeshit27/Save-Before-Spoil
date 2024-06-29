@@ -8,11 +8,13 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import {Link} from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import GenRecipe from "@/components/recipe/GenRecipe"
+import SendEmail from "@/components/recipe/SendEmail"
 
 export default function Component() {
     return (
         <section className="w-full py-12 md:py-16 lg:py-20">
-            <GenRecipe/>
+            <GenRecipe />
+            <SendEmail/>
             <div className="container px-4 md:px-6">
                 <div className="flex flex-col items-center gap-6 md:gap-8">
                     <div className="grid gap-2 text-center">
