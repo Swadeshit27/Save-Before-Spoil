@@ -1,9 +1,9 @@
 
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 
-export default function component() {
+export default function NavbarComp() {
   return (
-    <Navbar fluid rounded className={"sticky top-0 left-0 z-[9999] bg-white shadow-md"}>
+    <Navbar fluid rounded className={"sticky top-0 left-0 z-[99] bg-white shadow-md"}>
       <Navbar.Brand href="/">
         <img src="/favicon.svg" className="mr-3 h-6 sm:h-9" alt="Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Food Waste</span>

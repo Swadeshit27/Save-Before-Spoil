@@ -10,29 +10,47 @@ import Profile from "./pages/Profile";
 import Recipes from "./pages/Recipes";
 import Options from "./pages/Options";
 import DonateToFoodBank from "./pages/DonateToFoodBank";
+import { useSelector } from "react-redux";
+import { Spinner } from "flowbite-react";
+import PublicRoute from "./components/PublicRoute";
 
 function App() {
+  const { loading } = useSelector(state => state.auth);
   return (
     <div className="w-full min-h-screen ">
+      {loading && <div className="w-full h-screen top-0 fixed left-0 z-[999] bg-black/30 flex items-center justify-center"> <Spinner color="success" size={'xl'} aria-label="Success spinner example" /></div>}
       <Routes>
         <Route
-          path="/"
+          path="/dashboard-1"
           element={
-            <Wrapper>
+            <PublicRoute>
               <Dashboardnew />
-            </Wrapper>
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/dashboard-2"
+          element={
+            <PublicRoute>
+              <Dashboard />
+            </PublicRoute>
           }
         />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/profile" element={<Profile/>} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/upload" element={<CsvUploader />} />
-        <Route path="/recipe" element={<Recipes />} />
+        <Route path="/recipe"
+          element={
+            <PublicRoute >
+              <Recipes />
+            </PublicRoute>
+          } />
         <Route path="/options"
           element={
-            <Wrapper>
+            <PublicRoute>
               <Options />
-            </Wrapper>
+            </PublicRoute>
           } />
         <Route path="/donate-to-food-bank"
           element={
@@ -40,7 +58,7 @@ function App() {
               <DonateToFoodBank />
             </Wrapper>
           } />
-        <Route path="/Landing" element={<Landing />} />
+        <Route path="/" element={<Landing />} />
       </Routes>
     </div>
   );

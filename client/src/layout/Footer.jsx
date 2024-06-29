@@ -11,7 +11,7 @@ import {
 } from "flowbite-react";
 import { BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
 
-export default function Component() {
+export default function FooterComp() {
   return (
     <Footer container className={'border-t'}>
       <div className="w-full">
