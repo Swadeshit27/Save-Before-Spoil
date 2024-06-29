@@ -19,7 +19,6 @@ const Login = () => {
       alert(error.message);
     }
   };
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <form className="bg-white p-6 rounded shadow-md w-full max-w-sm" onSubmit={handleLogin}>
