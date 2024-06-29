@@ -1,18 +1,16 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/5NuVtmUwLid
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
+
 import { Input } from "@/components/ui/input"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import {Link} from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import GenRecipe from "@/components/recipe/GenRecipe"
+import { Button } from "@/components/ui/button" 
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Component() {
+    const [SearchVal, setSearchVal] = useState('');
+    const navigate = useNavigate();
     return (
-        <section className="w-full py-12 md:py-16 lg:py-20">
-            <GenRecipe/>
+        <section className="w-full py-12 md:py-16 lg:py-20"> 
             <div className="container px-4 md:px-6">
                 <div className="flex flex-col items-center gap-6 md:gap-8">
                     <div className="grid gap-2 text-center">
@@ -22,7 +20,7 @@ export default function Component() {
                         </p>
                     </div>
                     <div className="w-full max-w-md">
-                        <Input placeholder="Search by city, zip code, or name" className="h-10" />
+                        <Input placeholder="Search by city, zip code, or name" onChange={e=>setSearchVal(e.target.value)} className="h-10" />
                     </div>
                 </div>
                 <div className="grid gap-6 pt-8 md:pt-10 lg:pt-12">
@@ -54,7 +52,7 @@ export default function Component() {
                                 </div>
                             </CardContent>
                             <CardFooter>
-                                <Button variant="outline">Donate</Button>
+                                <Button onClick={()=>navigate(`/chat/${1}`)} variant="outline">Donate</Button>
                             </CardFooter>
                         </Card>
                         <Card>
