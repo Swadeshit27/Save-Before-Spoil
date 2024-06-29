@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.14.0",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
@@ -20,6 +21,7 @@
     "flowbite-react": "^0.10.1",
     "init": "^0.1.2",
     "lucide-react": "^0.399.0",
+    "markdown-to-jsx": "^7.4.7",
     "npx": "^10.2.2",
     "papaparse": "^5.4.1",
     "react": "^18.3.1",

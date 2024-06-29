@@ -2,8 +2,9 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Wrapper from "./layout/Wrapper";
-import { CssSyntaxError } from "postcss";
 import CsvUploader from "./pages/CsvUploader";
+import Options from "./pages/Options";
+import DonateToFoodBank from "./pages/DonateToFoodBank";
 
 function App() {
   return (
@@ -19,6 +20,18 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/upload" element={<CsvUploader />} />
+        <Route path="/options"
+          element={
+            <Wrapper>
+              <Options />
+            </Wrapper>
+          } />
+        <Route path="/donate-to-food-bank"
+          element={
+            <Wrapper>
+              <DonateToFoodBank />
+            </Wrapper>
+          } />
       </Routes>
     </div>
   );
