@@ -4,8 +4,11 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import RecipeTable from "@/components/recipe/RecipeSenderTabel"
 import Markdown from "markdown-to-jsx"
+import { useSelector } from "react-redux"
+import GenRecipe from "@/components/recipe/GenRecipe"
 
 export default function ChatWithFoodBank() {
+    const { ingredients } = useSelector(state => state.items) 
     return (
         <div className="flex flex-col h-screen">
             <header className="flex items-center px-4 py-3 border-b bg-background">
@@ -19,25 +22,25 @@ export default function ChatWithFoodBank() {
             </header>
             <div className="w-full overflow-visible h-auto p-4 bg-gray-200">
                 <div className="grid gap-4">
-                    <div className="flex items-start gap-3 text-sm">
+                    {/* <div className="flex items-start gap-3 text-sm">
                         <Avatar className="h-8 w-8" rounded />
                         <div className="grid gap-1 bg-white p-3 rounded-lg max-w-[75%]">
                             <div>Hey there! How's it going?</div>
                             <div className="text-xs text-muted-foreground">3:45 PM</div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="flex items-start gap-3 text-sm justify-end">
-                        <div className="grid gap-1 bg-blue-600 text-white p-3 rounded-lg max-w-[75%]">
-                            <div>Doing great, thanks for asking!</div>
-                            <div className="text-xs text-primary-foreground">3:46 PM</div>
+                        <div className="grid gap-1 bg-white text-gray-800 p-3 rounded-lg max-w-[75%]">
+                            <div>Hi Swadesh from this side, Nice to meet you !</div>
+                            {/* <div className="text-xs text-primary-foreground"></div> */}
                         </div>
                         <Avatar className="h-8 w-8" rounded />
                     </div> 
-                    <RecipeTable />
+                    <RecipeTable products={ingredients}/>
                     <div className="flex items-start gap-3 text-sm justify-end">
-                        <div className="grid gap-1 bg-blue-600 text-white p-3 rounded-lg max-w-[50%] text-wrap">
-                            <div>Here is types of recipes you can make</div>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit quaerat esse, voluptatem expedita omnis unde mollitia nam accusantium doloremque quibusdam aliquid totam ipsa eveniet eos inventore doloribus quo obcaecati odio laboriosam voluptas quasi numquam et nesciunt? Velit dicta vitae porro, ea saepe qui commodi amet magnam! Vero porro hic aliquam! </p>
+                        <div className="grid gap-1 bg-white text-gray-800 p-3 rounded-lg max-w-[50%] text-wrap">
+                            <h1 className="text-base font-medium">Here is types of recipes you can make</h1>
+                            <GenRecipe data={ingredients} />
                         </div>
                         <Avatar className="h-8 w-8" rounded />
                     </div> 

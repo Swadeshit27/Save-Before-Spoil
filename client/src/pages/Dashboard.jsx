@@ -19,22 +19,19 @@ import { database } from '../../firebase/firebase';
 import { useDispatch } from "react-redux";
 import { addIngredient } from "@/redux/slice/itemsSlice";
 import { useNavigate } from "react-router-dom";
+import { SlGraph } from "react-icons/sl";
+import { daysLeft, reducedPrice } from "@/utils/CommonFn";
 
-function daysLeft(expireDateString) {
-  const expireDate = new Date(expireDateString);
-  const currentDate = new Date();
-  const timeDifference = expireDate.getTime() - currentDate.getTime();
-  const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
-  return daysDifference;
-}
+
 
 const Dashboard = () => {
     const [start, setStart] = useState(0);
     const [end, setEnd] = useState(8);
-    const [searchVal, setSearchVal]=useState('')
+    const [searchVal, setSearchVal] = useState('')
     const [selected, setSelected] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
 
     const handelSelect = (checked, value) => {
         if (checked) {
@@ -43,24 +40,27 @@ const Dashboard = () => {
             setSelected(selected.filter((item) => item.name !== value.name));
         }
     }
-    const handelSubmit = () => {
-        console.log(selected);
+    const handelSubmit = () => { 
         dispatch(addIngredient(selected));
         navigate('/donate-to-food-bank')
     }
-    // const [data, setData] = useState([]);
+ 
+    const performOperations = (products, options) => {
+        let result = [...products];
 
-    // useEffect(() => {
-    //     const fetchData = async () => { 
-    //         const res = ref(database, 'csvData/');
-    //         if (res.exists()) {
-    //             console.log(res.val());
-    //         }
-    //         console.log(starCountRef); 
-    //     };
+        if (options.sortBy) {
+            result.sort((a, b) => a[options.sortBy] > b[options.sortBy] ? 1 : -1);
+        }
 
-    //     fetchData();
-    // }, []);
+        if (options.range && options.range.field) {
+            result = result.filter(product =>
+                product[options.range.field] >= options.range.min &&
+                product[options.range.field] <= options.range.max
+            );
+        }
+
+        return result;
+    };
 
     return (
         <section className="w-full min-h-screen bg-gray-200 flex  p-6">
@@ -72,7 +72,7 @@ const Dashboard = () => {
                         className="mt-1"
                         icon={HiSearch}
                         placeholder="Search food.."
-                        onChange={(e)=> setSearchVal(e.target.value)}
+                        onChange={(e) => setSearchVal(e.target.value)}
                     />
                 </div>
                 <div className="flex items-center space-x-2  mt-6 mb-2 text-xl font-semibold text-gray-700">
@@ -83,19 +83,19 @@ const Dashboard = () => {
                     <Label htmlFor="Sort by" value="Sort by foods" />
                     <Select className="mt-1 w-full">
                         <option value="">Sort by</option>
-                        <option value="">Price</option>
-                        <option value="">Rating</option>
+                        <option value="">Low to High</option>
+                        <option value="">High to Low</option>
                     </Select>
                 </div>
                 <div className="space-y-3 mt-6">
-                    <h1> Search in between range </h1>
+                    <h1> Search in between date intervals </h1>
                     <div>
                         <Label htmlFor="Sort by" className="mt-1" value="Start date" />
-                        <Datepicker />
+                        <Datepicker onChange={(e) => console.log(e.target.value)} />
                     </div>
                     <div>
                         <Label htmlFor="Sort by" className="mt-1" value="Ending date" />
-                        <Datepicker />
+                        <Datepicker onChange={(e) => console.log(e.target.value)} />
                     </div>
                 </div>
             </div>
@@ -117,14 +117,28 @@ const Dashboard = () => {
                                 {Foods.filter(ele => ele.name.toLowerCase().includes(searchVal.toLowerCase())).slice(start, end).map((food, index) => {
                                     const { name, price, expireDate, inStockQuantity } = food;
                                     return (
-                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={index}>
                                             <Table.Cell >
-                                                <Checkbox onChange={(e)=> handelSelect(e.target.checked, food)}/>
-                                                </Table.Cell>
+                                                <Checkbox onChange={(e) => handelSelect(e.target.checked, food)} />
+                                            </Table.Cell>
                                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                                 {name}
                                             </Table.Cell>
-                                            <Table.Cell>{price}</Table.Cell>
+                                            <Table.Cell>
+                                                <div className="text-base font-medium text-gray-700">
+                                                    {
+                                                        price !== reducedPrice(price, daysLeft(expireDate)) ? (
+                                                            <div className="flex items-center space-x-2">
+                                                                <span className=" text-gray-400 line-through">{price} </span>
+                                                                <span>
+                                                                    {reducedPrice(price, daysLeft(expireDate))}
+                                                                </span>
+                                                                <SlGraph className={"rotate-90 text-red-500"} />
+                                                            </div>):
+                                                            <span>{price} </span>
+                                                    }
+                                                </div>
+                                            </Table.Cell>
                                             <Table.Cell>{expireDate}</Table.Cell>
                                             {daysLeft(expireDate) > 0 ? (
                                                 <Table.Cell className={`${daysLeft(expireDate) > 30 ? "text-green-500" : "text-orange-600"} text-sm font-medium`}>

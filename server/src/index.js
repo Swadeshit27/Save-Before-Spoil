@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 app.post('/send-email', async (req, res) => {
   try {
     const { email, subject, message } = req.body;
-    console.log(email, subject, message )
+    // console.log(email, subject, message )
     if (!email || !subject || !message) {
       return res.status(400).json({ message: 'All fields are required' });
     }
