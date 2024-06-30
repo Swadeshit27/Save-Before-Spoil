@@ -33,10 +33,10 @@ export default function NavbarComp() {
     <Navbar
       fluid
       rounded
-      className={"sticky top-0 left-0 z-[99] bg-white shadow-md"}
+      className={"sticky top-0 left-0 z-[99] w-full h-20 bg-white shadow-md"}
     >
       <Navbar.Brand href="/">
-        <img src={logo} className="mr-3 h-20" alt="Logo" />
+        <img src={logo} className="mr-3 h-16" alt="Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white translate-y-[-0.5rem]">
           Save <span>Before</span> Spoil
         </span>
@@ -65,21 +65,22 @@ export default function NavbarComp() {
           <Dropdown.Item onClick={() => navigate("/dashboard-1")}>
             Dashboard
           </Dropdown.Item>
-
-          <Dropdown.Item>Earnings</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link href="#" active>
+        <Navbar.Link href="/" active className={'text-base'}>
           Home
         </Navbar.Link>
-        <Navbar.Link href="#">About</Navbar.Link>
-        <Navbar.Link href="#">Services</Navbar.Link>
-        <Navbar.Link href="#">Pricing</Navbar.Link>
-        <Navbar.Link href="#">Contact</Navbar.Link>
+        <Navbar.Link href="/dashboard-1" active className={'text-base'}>
+          Dashboard
+        </Navbar.Link>
+        <Navbar.Link href="#" className={'text-base'}>Services</Navbar.Link>
+        <Navbar.Link href="#" className={'text-base'}>Pricing</Navbar.Link>
+        <Navbar.Link href="#" className={'text-base'}>About</Navbar.Link>
+        <Navbar.Link href="#" className={'text-base'}>Contact</Navbar.Link>
       </Navbar.Collapse>
       <ToastContainer />
     </Navbar>

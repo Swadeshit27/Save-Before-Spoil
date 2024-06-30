@@ -1,51 +1,24 @@
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
+import { daysLeft } from "@/utils/CommonFn"
+import { useEffect } from "react";
+import { useState } from "react"
 
-export default function Component() {
-    const products = [
-        {
-            name: "Whole Wheat Bread",
-            price: "$2.99",
-            daysRemaining: 7,
-            usedFor: "Sandwiches, toast, breadcrumbs",
-        },
-        {
-            name: "Canned Tomatoes",
-            price: "$1.50",
-            daysRemaining: 14,
-            usedFor: "Pasta sauces, soups, stews",
-        },
-        {
-            name: "Chicken Breasts",
-            price: "$4.99/lb",
-            daysRemaining: 5,
-            usedFor: "Grilled chicken, chicken salad, chicken noodle soup",
-        },
-        {
-            name: "Broccoli",
-            price: "$2.99/lb",
-            daysRemaining: 3,
-            usedFor: "Steamed broccoli, broccoli casserole, broccoli salad",
-        },
-        {
-            name: "Brown Rice",
-            price: "$1.99",
-            daysRemaining: 21,
-            usedFor: "Rice bowls, fried rice, rice pilaf",
-        },
-        {
-            name: "Canned Beans",
-            price: "$0.99",
-            daysRemaining: 30,
-            usedFor: "Chili, burritos, bean salads",
-        },
-    ]
+export default function RecipeTable({ products }) {
+    const [price, setPrice] = useState(0);
+    const totalPrice = () => {
+        let total = 0;
+        for (let i = 0; i < products.length; i++)total += products[i].price;
+        setPrice(total)
+    }
+    useEffect(() => {
+        totalPrice();  
+    },[])
     return (
-        <Card>
+        <Card className="max-w-[50%] ms-auto">
             <CardHeader>
-                <CardTitle>Expiring Products</CardTitle>
+                <CardTitle>Expiring Our Products</CardTitle>
                 <CardDescription>
                     View details on products that will expire soon and what dishes they can be used for.
                 </CardDescription>
@@ -54,13 +27,9 @@ export default function Component() {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Product</TableHead>
+                            <TableHead>Item Name</TableHead>
                             <TableHead>Price</TableHead>
-                            <TableHead>Days Remaining</TableHead>
-                            <TableHead>Used For</TableHead>
-                            <TableHead>
-                                <span className="sr-only">Contact</span>
-                            </TableHead>
+                            <TableHead>Days Remaining</TableHead> 
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -68,16 +37,17 @@ export default function Component() {
                             <TableRow key={index}>
                                 <TableCell className="font-medium">{product.name}</TableCell>
                                 <TableCell>{product.price}</TableCell>
-                                <TableCell>{product.daysRemaining}</TableCell>
-                                <TableCell>{product.usedFor}</TableCell>
-                                <TableCell>
-                                    <Button size="sm">Contact</Button>
-                                </TableCell>
+                                <TableCell>{daysLeft(product.expireDate)}</TableCell> 
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </CardContent>
+            <div className="flex items-center gap-x-4 px-4 pb-4">
+                <h1>Total Price: </h1>
+                <p> ₹{price}</p>
+            </div>
+            <button className="px-6 py-2.5 bg-black text-white  rounded-md cursor-pointer m-4 mt-0">Pay Now</button>
         </Card>
     )
 }

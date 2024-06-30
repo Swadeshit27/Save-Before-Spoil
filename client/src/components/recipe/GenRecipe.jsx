@@ -3,13 +3,11 @@ import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { useSelector } from 'react-redux';
-import { Textarea } from 'flowbite-react';
 import Markdown from 'markdown-to-jsx'
+import { useEffect } from 'react';
 
-const GenRecipe = () => {
-    const { ingredients } = useSelector(state => state.items);
-    console.log(ingredients)
+const GenRecipe = ({ data }) => {
+    // const { ingredients } = useSelector(state => state.items);
     const [recipe, setRecipe] = useState('');
 
     const generateRecipe = async () => {
@@ -28,10 +26,12 @@ const GenRecipe = () => {
                 stop: ['\n', ':', '.', '?', '!'],
             });
 
-            const prompt = `Generate recipes can be made with these following ingredients in food banks: ${ingredients.join(', ')}`;
+            const prompt = `Generate recipes can be made with these following ingredients in food banks: ${data.join(', ')}`;
+            console.log(prompt)
             const result = await model.generateContent(prompt);
             const response = await result.response;
             const text = await response.text();
+            console.log(text)
             setRecipe(text);
         } catch (error) {
             console.error('Error generating recipe: ', error);
@@ -40,8 +40,7 @@ const GenRecipe = () => {
 
     const saveIngredients = async () => {
         try {
-            const ingredientList = ingredients.map((ingredient) => ingredient.name);
-            console.log(ingredientList)
+            const ingredientList = data.map((ingredient) => ingredient.name);
             await addDoc(collection(db, 'ingredients'), {
                 ingredients: ["rice", "chicken"],
                 timestamp: new Date(),
@@ -56,13 +55,17 @@ const GenRecipe = () => {
         await generateRecipe();
     };
 
+    useEffect(() => {
+        handleGenerateRecipe();
+    }, [])
+
     return (
         <div>
-            <h1>Recipe Generator</h1>
-            <button onClick={handleGenerateRecipe}>Generate Recipe</button>
-            {recipe && <Markdown>{recipe}</Markdown>}
+
+            {recipe ? <Markdown>{recipe}</Markdown> : <p>Sorry, we are currently enable to generate recipes using these ingredients</p>}
         </div>
     );
 };
 
 export default GenRecipe;
+

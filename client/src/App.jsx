@@ -3,17 +3,16 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Dashboardnew from "./pages/Dashboardnew";
 import Landing from "./pages/Landing";
-import Wrapper from "./layout/Wrapper";
 import CsvUploader from "./pages/CsvUploader";
 import SignUp from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Recipes from "./pages/Recipes";
 import Options from "./pages/Options";
 import DonateToFoodBank from "./pages/DonateToFoodBank";
-import { useSelector } from "react-redux";
-import { Spinner } from "flowbite-react";
-import PublicRoute from "./components/PublicRoute";
+import { useSelector } from "react-redux"; 
 import FoodBankDashboard from "./pages/FoodBankDashboard";
+import { Spinner } from "flowbite-react"; 
+import ChatWithFoodBank from "./pages/ChatWithFoodBank";
 import Authlayout from "./layout/Authlayout";
 
 function App() {
@@ -21,8 +20,7 @@ function App() {
   return (
     <div className="w-full min-h-screen ">
       {loading && (
-        <div className="w-full h-screen top-0 fixed left-0 z-[999] bg-black/30 flex items-center justify-center">
-          {" "}
+        <div className="w-full h-screen top-0 fixed left-0 z-[999] bg-black/30 flex items-center justify-center"> 
           <Spinner
             color="success"
             size={"xl"}
@@ -42,16 +40,24 @@ function App() {
         <Route
           path="/dashboard-2"
           element={
-            <Authlayout>
+            // <PublicRoute>
               <Dashboard />
-            </Authlayout>
+            // </PublicRoute>
           }
         />
         {/* <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/upload" element={<CsvUploader />} /> */}
-        <Route path="/food-bank-dashboard" element={<FoodBankDashboard />} />
+        <Route
+          path="/food-bank-dashboard"
+          element={
+            <Authlayout>
+            <FoodBankDashboard />
+            </Authlayout>
+          } 
+          
+          />
         {/* <Route path="/recipe" */}
         <Route
           path="/login"
@@ -94,10 +100,10 @@ function App() {
           }
         />
         <Route
-          path="/options"
+          path="/chat/:id"
           element={
             <Authlayout authentication>
-              <Options />
+              <ChatWithFoodBank/>
             </Authlayout>
           }
         />

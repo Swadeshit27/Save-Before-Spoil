@@ -23,26 +23,26 @@ export default function FooterComp() {
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
-                About
+                Quick Links
               </h2>
               <ul className="text-gray-600">
                 <li className="mb-4">
                   <a href="#" className="hover:underline">
-                    Flowbite
+                    Home
                   </a>
                 </li>
                 <li>
                   <a href="#" className="hover:underline">
-                    Tailwind CSS
+                    About us
                   </a>
                 </li>
               </ul>
             </div>
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
-                Follow us
+                Contact us
               </h2>
-              <ul className="text-gray-600">
+              {/* <ul className="text-gray-600">
                 <li className="mb-4">
                   <a href="#" className="hover:underline">
                     Github
@@ -53,11 +53,11 @@ export default function FooterComp() {
                     Discord
                   </a>
                 </li>
-              </ul>
+              </ul> */}
             </div>
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
-                Legal
+                Policies
               </h2>
               <ul className="text-gray-600">
                 <li className="mb-4">
@@ -79,7 +79,7 @@ export default function FooterComp() {
           <span className="text-sm text-gray-500 sm:text-center">
             © 2022{" "}
             <a href="#" className="hover:underline">
-              Flowbite™
+              Team-S2K2
             </a>
             . All Rights Reserved.
           </span>

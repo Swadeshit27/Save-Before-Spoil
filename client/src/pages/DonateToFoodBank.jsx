@@ -1,18 +1,59 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/5NuVtmUwLid
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
+
 import { Input } from "@/components/ui/input"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import GenRecipe from "@/components/recipe/GenRecipe"
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { daysLeft } from "@/utils/CommonFn";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 export default function Component() {
+    const [SearchVal, setSearchVal] = useState('');
+    const { ingredients } = useSelector(state => state.items);
+    const navigate = useNavigate();
+    const sendEmail = async (email) => {
+        const subject = "Recipe products list"
+        const message = `
+    <h2 style="text-align: center;">Product Table</h2>
+    <table border="1" style="width: 60%; margin: auto; border-collapse: collapse; text-align: center;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th style="padding: 10px;">Item Name</th>
+                <th style="padding: 10px;">Price</th>
+                <th style="padding: 10px;">Days Remaining</th>
+            </tr>
+        </thead>
+        <tbody>
+        ${ingredients.map((product, index) => (
+            `<tr>
+                <td style="padding: 10px;">${product.name}</td>
+                <td style="padding: 10px;">${product.price}</td>
+                <td style="padding: 10px;">${daysLeft(product.expireDate)}</td>
+            </tr>`))}
+        </tbody>
+    </table>
+      <div style="width: 60%; margin: 20px auto; text-align: center;">
+        <p style="font-size: 18px;">Recipes that can be made using these products:</p>
+         <a href="#" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Check Now</a>
+    </div>
+
+    <div style="width: 60%; margin: 20px auto; text-align: center;">
+        <p style="font-size: 18px;">Total Amount to be Paid: <strong>₹1000</strong></p>
+        <button style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Proceed to Payment</button>
+    </div>  `
+        try {
+            const { data } = await axios.post('http://localhost:8080/send-email', { email, subject, message })
+            console.log(data);
+            toast.success('Email sent successfully')
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <section className="w-full py-12 md:py-16 lg:py-20">
-            <GenRecipe/>
             <div className="container px-4 md:px-6">
                 <div className="flex flex-col items-center gap-6 md:gap-8">
                     <div className="grid gap-2 text-center">
@@ -22,7 +63,7 @@ export default function Component() {
                         </p>
                     </div>
                     <div className="w-full max-w-md">
-                        <Input placeholder="Search by city, zip code, or name" className="h-10" />
+                        <Input placeholder="Search by city, zip code, or name" onChange={e => setSearchVal(e.target.value)} className="h-10" />
                     </div>
                 </div>
                 <div className="grid gap-6 pt-8 md:pt-10 lg:pt-12">
@@ -54,7 +95,8 @@ export default function Component() {
                                 </div>
                             </CardContent>
                             <CardFooter>
-                                <Button variant="outline">Donate</Button>
+                                <Button onClick={() => navigate(`/chat/${1}`)} variant="outline">Connect</Button>
+                                <Button onClick={() => sendEmail('swadeshpal129@gmail.com')} variant="outline">Email Notification</Button>
                             </CardFooter>
                         </Card>
                         <Card>
