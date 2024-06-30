@@ -1,30 +1,68 @@
-
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
+import { getAuth, signOut } from "firebase/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/slice/authslice";
 
 export default function NavbarComp() {
+  const auth = getAuth();
+  console.log(auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.auth.userData);
+  console.log(user);
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        toast.success("Logged out successfully");
+        dispatch(logout());
+        navigate("/login");
+        console.log(user);
+      })
+      .catch((error) => {
+        toast.error("Error logging out");
+      });
+  };
+
   return (
-    <Navbar fluid rounded className={"sticky top-0 left-0 z-[99] bg-white shadow-md"}>
+    <Navbar
+      fluid
+      rounded
+      className={"sticky top-0 left-0 z-[99] bg-white shadow-md"}
+    >
       <Navbar.Brand href="/">
         <img src="/favicon.svg" className="mr-3 h-6 sm:h-9" alt="Logo" />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Food Waste</span>
+        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+          Food Waste
+        </span>
       </Navbar.Brand>
       <div className="flex md:order-2">
         <Dropdown
           arrowIcon={false}
           inline
           label={
-            <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+            <Avatar
+              alt="User settings"
+              img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+              rounded
+            />
           }
         >
           <Dropdown.Header>
-            <span className="block text-sm">Bonnie Green</span>
-            <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+            <span className="block text-sm">{user?.displayName}</span>
+            <span className="block truncate text-sm font-medium">
+              {user?.email}
+            </span>
           </Dropdown.Header>
           <Dropdown.Item>Dashboard</Dropdown.Item>
           <Dropdown.Item>Settings</Dropdown.Item>
           <Dropdown.Item>Earnings</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item>Sign out</Dropdown.Item>
+          <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle />
       </div>
@@ -37,6 +75,7 @@ export default function NavbarComp() {
         <Navbar.Link href="#">Pricing</Navbar.Link>
         <Navbar.Link href="#">Contact</Navbar.Link>
       </Navbar.Collapse>
+      <ToastContainer />
     </Navbar>
   );
 }
