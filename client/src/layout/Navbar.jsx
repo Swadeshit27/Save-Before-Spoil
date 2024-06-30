@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slice/authslice";
+import logo from "../assets/img/logo.png";
 
 export default function NavbarComp() {
   const auth = getAuth();
@@ -35,9 +36,9 @@ export default function NavbarComp() {
       className={"sticky top-0 left-0 z-[99] bg-white shadow-md"}
     >
       <Navbar.Brand href="/">
-        <img src="/favicon.svg" className="mr-3 h-6 sm:h-9" alt="Logo" />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          Food Waste
+        <img src={logo} className="mr-3 h-20" alt="Logo" />
+        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white translate-y-[-0.5rem]">
+          Save <span>Before</span> Spoil
         </span>
       </Navbar.Brand>
       <div className="flex md:order-2">
@@ -58,8 +59,13 @@ export default function NavbarComp() {
               {user?.email}
             </span>
           </Dropdown.Header>
-          <Dropdown.Item>Dashboard</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
+          <Dropdown.Item onClick={() => navigate("/profile")}>
+            Profile
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => navigate("/dashboard-1")}>
+            Dashboard
+          </Dropdown.Item>
+
           <Dropdown.Item>Earnings</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
