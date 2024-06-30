@@ -44,7 +44,7 @@ const SignUp = () => {
             const token = credential.accessToken;
             const user = res.user;
             console.log("Here is the User" + user);
-            navigate("/");
+          navigate(role === 'food_bank' ? '/food-bank-dashboard' : '/shop-keeper-dashboard');
         } catch (error) {
             console.log(error);
         }

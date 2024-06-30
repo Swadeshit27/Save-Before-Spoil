@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { getDatabase, ref, push, set, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { database } from "../../firebase/firebase";
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { useDispatch } from "react-redux";
-import { setAllItems } from "@/redux/slice/itemsSlice";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Wrapper from "../layout/Wrapper";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
@@ -27,50 +24,50 @@ function formatDate(dateString) {
   const year = date.getFullYear();
   return `${day}/${month}/${year}`;
 }
+
 // Function to calculate days left based on dd/mm/yyyy format
 function daysLeft(expireDateString) {
   const [day, month, year] = expireDateString.split("/").map(Number);
-
   const expireDate = new Date(year, month - 1, day);
   const currentDate = new Date();
-
   const timeDifference = expireDate.getTime() - currentDate.getTime();
-
   const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
   return daysDifference;
 }
 
 function Dashboardnew() {
-  const dispatch = useDispatch();
-
-  const [userid, setuserid] = useState("");
+  const navigate = useNavigate();
+  const [userid, setUserid] = useState("");
   const [error, setError] = useState(null);
-  const [items, setItems] = useState([]);
   const [csvList, setCsvList] = useState([]);
 
   useEffect(() => {
-    const fetchlistdata = () => {
-      const dbRef = ref(database, "csvData");
-      onValue(
-        dbRef,
-        (snapshot) => {
-          const listData = [];
-
-          snapshot.forEach((childSnapshot) => {
-            const childKey = childSnapshot.key;
-            const childData = childSnapshot.val();
-            if (childData) {
-              setCsvList((prev) => [...prev, childData]);
-            }
-          });
-        },
-        {
-          onlyOnce: true,
-        }
-      );
+    const fetchListData = () => {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (user) {
+        const dbRef = ref(database, user.uid);
+        onValue(
+          dbRef,
+          (snapshot) => {
+            const listData = [];
+            snapshot.forEach((childSnapshot) => {
+              const childData = childSnapshot.val();
+              if (childData) {
+                listData.push(childData);
+              }
+            });
+            setCsvList(listData);
+          },
+          {
+            onlyOnce: true,
+          }
+        );
+      }
     };
-    fetchlistdata();
+    fetchListData();
   }, []);
+
   const getCurrentUserData = async () => {
     try {
       const auth = getAuth();
@@ -78,8 +75,7 @@ function Dashboardnew() {
         if (user) {
           const userDoc = await getDoc(doc(database, "users", user.uid));
           if (userDoc.exists()) {
-            console.log(userDoc.data());
-            setuserid(user.uid);
+            setUserid(user.uid);
           } else {
             console.log("No such document!");
           }
@@ -94,52 +90,58 @@ function Dashboardnew() {
 
   return (
     <Wrapper>
-      <div className="flex flex-col justify-center items-center">
-        <Button>Upload CSV</Button>
-        {/* <Button  className="">
-        Fetch Data
-      </Button> */}
+      <div className="flex flex-col justify-center items-center min-h-screen">
+        <div className="flex space-x-4 py-4">
+          <Button onClick={() => navigate("/upload")}>Upload CSV</Button>
+          <Button>Add new Item +</Button>
+        </div>
         {error && <p style={{ color: "red" }}>{error}</p>}
-        {items.length != 0 ? (
-          <p>No data to display. Please upload a CSV file first.</p>
-        ) : null}
-        {items.length > 0 && (
+        {csvList.length === 0 ? (
+          <p className="text-center">
+            No data to display. Please upload a CSV file of your product
+            database first with these fields: Product Name, Date of Manufacture,
+            Date of Expire, Price, Quantity, unit.
+          </p>
+        ) : (
           <Table>
             <TableCaption>Fetched Data</TableCaption>
             <TableHeader>
               <TableRow>
-                {Object.keys(items[0]).map((key) => (
+                {Object.keys(csvList[0] || {}).map((key) => (
                   <TableHead key={key}>{key}</TableHead>
                 ))}
                 <TableHead>Days Left</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {items.map((row, index) => (
+              {csvList.map((row, index) => (
                 <TableRow key={index}>
                   {Object.entries(row).map(([key, value], i) => (
                     <TableCell key={i}>
-                      {key.includes("Date") ? formatDate(value) : value}
+                      {key.includes("date")
+                        ? formatDate(value)
+                        : typeof value === "object"
+                        ? JSON.stringify(value)
+                        : value}
                     </TableCell>
                   ))}
-
-                  {daysLeft(formatDate(row["Date of Expire"])) > 0 ? (
-                    <TableCell
-                      className={`${
-                        daysLeft(formatDate(row["Date of Expire"])) > 30
-                          ? "text-green-500 "
-                          : "text-orange-600"
-                      } text-sm font-medium`}
-                    >
-                      {daysLeft(formatDate(row["Date of Expire"]))} days left
-                    </TableCell>
-                  ) : (
-                    <TableCell>
-                      <span className="inline-block rounded-full bg-red-500 text-white px-2 py-1">
+                  <TableCell>
+                    {daysLeft(formatDate(row["date_of_expire"])) > 0 ? (
+                      <span
+                        className={`${
+                          daysLeft(formatDate(row["date_of_expire"])) > 30
+                            ? "text-green-500"
+                            : "text-orange-600"
+                        } text-sm font-medium`}
+                      >
+                        {daysLeft(formatDate(row["date_of_expire"]))} days left
+                      </span>
+                    ) : (
+                      <span className="inline-block rounded-full bg-red-500 px-2 py-1 text-white">
                         Expired
                       </span>
-                    </TableCell>
-                  )}
+                    )}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

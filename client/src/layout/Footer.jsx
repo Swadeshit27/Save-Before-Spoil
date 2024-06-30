@@ -1,64 +1,107 @@
 import {
-  Footer,
-  FooterBrand,
-  FooterCopyright,
-  FooterDivider,
-  FooterIcon,
-  FooterLink,
-  FooterLinkGroup,
-  FooterTitle,
-} from "flowbite-react";
-import { BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
+  BsDribbble,
+  BsFacebook,
+  BsGithub,
+  BsInstagram,
+  BsTwitter,
+} from "react-icons/bs";
+import logo from "../assets/img/logo.png";
 
 export default function FooterComp() {
   return (
-    <Footer container className="border-t bg-white">
-      <div className="w-full py-6">
-        <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-          <div>
-            <FooterBrand
-              href="https://flowbite.com"
-              src="https://flowbite.com/docs/images/logo.svg"
-              alt="Flowbite Logo"
-              name="Flowbite"
-            />
+    <footer className="border-t p-6 bg-gray-100">
+      <div className="container mx-auto">
+        <div className="flex flex-wrap justify-between">
+          <div className="mb-6 md:mb-0">
+            <a href="https://flowbite.com" className="flex items-center">
+              <img src={logo} alt="Flowbite Logo" className="h-20 " />
+              <span className="self-center text-xl font-semibold whitespace-nowrap translate-y-[-0.5rem]">
+                Save Before Spoil
+              </span>
+            </a>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             <div>
-              <FooterTitle title="About" />
-              <FooterLinkGroup col>
-                <FooterLink href="#">Flowbite</FooterLink>
-                <FooterLink href="#">Tailwind CSS</FooterLink>
-              </FooterLinkGroup>
+              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
+                About
+              </h2>
+              <ul className="text-gray-600">
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Flowbite
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    Tailwind CSS
+                  </a>
+                </li>
+              </ul>
             </div>
             <div>
-              <FooterTitle title="Follow us" />
-              <FooterLinkGroup col>
-                <FooterLink href="#">Github</FooterLink>
-                <FooterLink href="#">Discord</FooterLink>
-              </FooterLinkGroup>
+              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
+                Follow us
+              </h2>
+              <ul className="text-gray-600">
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Github
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    Discord
+                  </a>
+                </li>
+              </ul>
             </div>
             <div>
-              <FooterTitle title="Legal" />
-              <FooterLinkGroup col>
-                <FooterLink href="#">Privacy Policy</FooterLink>
-                <FooterLink href="#">Terms & Conditions</FooterLink>
-              </FooterLinkGroup>
+              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
+                Legal
+              </h2>
+              <ul className="text-gray-600">
+                <li className="mb-4">
+                  <a href="#" className="hover:underline">
+                    Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:underline">
+                    Terms &amp; Conditions
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-        <FooterDivider />
-        <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <FooterCopyright href="#" by="Flowbite™" year={2022} />
-          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <FooterIcon href="#" icon={BsFacebook} />
-            <FooterIcon href="#" icon={BsInstagram} />
-            <FooterIcon href="#" icon={BsTwitter} />
-            <FooterIcon href="#" icon={BsGithub} />
-            <FooterIcon href="#" icon={BsDribbble} />
+        <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
+        <div className="sm:flex sm:items-center sm:justify-between">
+          <span className="text-sm text-gray-500 sm:text-center">
+            © 2022{" "}
+            <a href="#" className="hover:underline">
+              Flowbite™
+            </a>
+            . All Rights Reserved.
+          </span>
+          <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
+            <a href="#" className="text-gray-500 hover:text-gray-900">
+              <BsFacebook size={20} />
+            </a>
+            <a href="#" className="text-gray-500 hover:text-gray-900">
+              <BsInstagram size={20} />
+            </a>
+            <a href="#" className="text-gray-500 hover:text-gray-900">
+              <BsTwitter size={20} />
+            </a>
+            <a href="#" className="text-gray-500 hover:text-gray-900">
+              <BsGithub size={20} />
+            </a>
+            <a href="#" className="text-gray-500 hover:text-gray-900">
+              <BsDribbble size={20} />
+            </a>
           </div>
         </div>
       </div>
-    </Footer>
+    </footer>
   );
 }
