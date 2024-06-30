@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { db, auth } from '../../firebase/firebase';
 import { doc, setDoc } from 'firebase/firestore';
@@ -12,14 +12,13 @@ const SignUp = () => {
     const [role, setRole] = useState('');
     const [location, setLocation] = useState('');
     const navigate = useNavigate();
-
+    
     const handleSignUp = async (e) => {
         e.preventDefault();
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // Create a new document in Firestore for the user
             await setDoc(doc(db, 'users', user.uid), {
                 uid: user.uid,
                 username,
@@ -30,7 +29,7 @@ const SignUp = () => {
             });
 
             alert('User registered successfully');
-            navigate('/');
+            navigate(role === 'food_bank' ? '/food-bank-dashboard' : '/shop-keeper-dashboard');
         } catch (error) {
             console.error('Error signing up: ', error);
             alert(error.message);
@@ -53,7 +52,7 @@ const SignUp = () => {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-800 to-black">
-            <form className="bg-white p-8 rounded-2xl  max-w-md w-full">
+            <form onSubmit={handleSignUp} className="bg-white p-8 rounded-2xl  max-w-md w-full">
                 <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Sign Up</h2>
                 <div className=' flex gap-4'>
                 <div className="mb-4">
@@ -64,10 +63,10 @@ const SignUp = () => {
                         onChange={(e) => setUsername(e.target.value)}
                         placeholder="Enter your username"
                         required
-                            className="w-full p-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gray-300"
+                            className="w-full p-3 rounded-xl shadow-neumorphic-inner focus:outline-none focus:ring-2 focus:ring-gray-300"
                     />
                 </div>
-                <div className="mb-4">
+                <div className="mb-4 gap-4">
                     <label className="block mb-2 text-gray-700">Email</label>
                     <input
                         type="email"
@@ -75,7 +74,7 @@ const SignUp = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter your email"
                         required
-                            className="w-full p-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gray-300"
+                            className="w-full p-3 rounded-xl shadow-neumorphic-inner focus:outline-none focus:ring-2 focus:ring-gray-300"
                     />
                     </div>
                 </div>
@@ -88,7 +87,7 @@ const SignUp = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Enter your password"
                         required
-                            className="w-full p-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gray-300"
+                            className="w-full p-3 rounded-xl shadow-neumorphic-inner focus:outline-none focus:ring-2 focus:ring-gray-300"
                     />
                 </div>
                 <div className="mb-4">
@@ -99,7 +98,7 @@ const SignUp = () => {
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="Enter your phone number"
                         required
-                            className="w-full p-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gray-300"
+                            className="w-full p-3 rounded-xl shadow-neumorphic-inner focus:outline-none focus:ring-2 focus:ring-gray-300"
                     />
                     </div>
                 </div>
@@ -115,7 +114,7 @@ const SignUp = () => {
                                 checked={role === 'shop_keeper'}
                                 onChange={(e) => setRole(e.target.value)}
                                 required
-                                className="form-radio text-black-600  focus:ring-black"
+                                    className="form-radio text-indigo-600 shadow-neumorphic-inner focus:ring-indigo-500"
                             />
                             <span className="ml-2 text-gray-800">Shop Keeper</span>
                         </label>
@@ -127,7 +126,7 @@ const SignUp = () => {
                                 checked={role === 'food_bank'}
                                 onChange={(e) => setRole(e.target.value)}
                                 required
-                                    className="form-radio text-black-600  focus:ring-black"
+                                    className="form-radio text-indigo-600 shadow-neumorphic-inner focus:ring-indigo-500"
                             />
                             <span className="ml-2 text-gray-800">Food Bank (NGO)</span>
                         </label>
@@ -141,7 +140,7 @@ const SignUp = () => {
                         onChange={(e) => setLocation(e.target.value)}
                         placeholder="Enter your location"
                         required
-                            className="w-full p-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-gray-300"
+                            className="w-full p-3 rounded-xl shadow-neumorphic-inner focus:outline-none focus:ring-2 focus:ring-gray-300"
                     />
                     </div>
                 </div>

@@ -1,4 +1,3 @@
-
 import {
   Footer,
   FooterBrand,
@@ -11,10 +10,10 @@ import {
 } from "flowbite-react";
 import { BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
 
-export default function Component() {
+export default function FooterComp() {
   return (
-    <Footer container className={'border-t'}>
-      <div className="w-full">
+    <Footer container className="border-t bg-white">
+      <div className="w-full py-6">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div>
             <FooterBrand
@@ -26,7 +25,7 @@ export default function Component() {
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
             <div>
-              <FooterTitle title="about" />
+              <FooterTitle title="About" />
               <FooterLinkGroup col>
                 <FooterLink href="#">Flowbite</FooterLink>
                 <FooterLink href="#">Tailwind CSS</FooterLink>
@@ -43,7 +42,7 @@ export default function Component() {
               <FooterTitle title="Legal" />
               <FooterLinkGroup col>
                 <FooterLink href="#">Privacy Policy</FooterLink>
-                <FooterLink href="#">Terms &amp; Conditions</FooterLink>
+                <FooterLink href="#">Terms & Conditions</FooterLink>
               </FooterLinkGroup>
             </div>
           </div>

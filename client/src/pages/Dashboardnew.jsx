@@ -12,6 +12,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { useDispatch } from "react-redux";
+import { setAllItems } from "@/redux/slice/itemsSlice";
+import { useSelector } from "react-redux";
 
 // Helper function to format date to dd/mm/yyyy
 function formatDate(dateString) {
@@ -35,29 +38,30 @@ function daysLeft(expireDateString) {
 }
 
 function Dashboardnew() {
+  const dispatch = useDispatch();
+  const items  = useSelector(state => state.items)
+  console.log(items)
   const [error, setError] = useState(null);
-  const [csvlist, setCsvList] = useState([]);
 
+  const fetchlistdata = () => {
+    const dbRef = ref(database, "csvData");
+    onValue(
+      dbRef,
+      (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          const childData = childSnapshot.val();
+          if (childData) {
+            dispatch(setAllItems(childData));
+          }
+        });
+      },
+      {
+        onlyOnce: true,
+      }
+    );
+  };
+  fetchlistdata();
   useEffect(() => {
-    const fetchlistdata = () => {
-      const dbRef = ref(database, "csvData");
-      onValue(
-        dbRef,
-        (snapshot) => {
-          const listData = [];
-          snapshot.forEach((childSnapshot) => {
-            const childData = childSnapshot.val();
-            if (childData) {
-              setCsvList((prev) => [...prev, childData]);
-            }
-          });
-        },
-        {
-          onlyOnce: true,
-        }
-      );
-    };
-    fetchlistdata();
   }, []);
 
   return (
@@ -67,19 +71,19 @@ function Dashboardnew() {
         Fetch Data
       </Button> */}
       {error && <p style={{ color: "red" }}>{error}</p>}
-      {csvlist.length > 0 && (
+      {items.length > 0 && (
         <Table>
           <TableCaption>Fetched Data</TableCaption>
           <TableHeader>
             <TableRow>
-              {Object.keys(csvlist[0]).map((key) => (
+              {Object.keys(items[0]).map((key) => (
                 <TableHead key={key}>{key}</TableHead>
               ))}
               <TableHead>Days Left</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {csvlist.map((row, index) => (
+            {items.map((row, index) => (
               <TableRow key={index}>
                 {Object.entries(row).map(([key, value], i) => (
                   <TableCell key={i}>
@@ -89,11 +93,10 @@ function Dashboardnew() {
 
                 {daysLeft(formatDate(row["Date of Expire"])) > 0 ? (
                   <TableCell
-                    className={`${
-                      daysLeft(formatDate(row["Date of Expire"])) > 30
-                        ? "text-green-500 "
-                        : "text-orange-600"
-                    } text-sm font-medium`}
+                    className={`${daysLeft(formatDate(row["Date of Expire"])) > 30
+                      ? "text-green-500 "
+                      : "text-orange-600"
+                      } text-sm font-medium`}
                   >
                     {daysLeft(formatDate(row["Date of Expire"]))} days left
                   </TableCell>
