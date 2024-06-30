@@ -3,7 +3,7 @@ import { auth } from "../../firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setLoading, setToken } from "@/redux/slice/authslice";
+import { setLoading } from "@/redux/slice/authslice";
 import { login } from "../redux/slice/authslice";
 
 const Login = () => {
