@@ -7,10 +7,9 @@ import CsvUploader from "./pages/CsvUploader";
 import SignUp from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Recipes from "./pages/Recipes";
-import Options from "./pages/Options";
 import DonateToFoodBank from "./pages/DonateToFoodBank";
 import { useSelector } from "react-redux";
-import { Spinner } from "flowbite-react"; 
+import { Spinner } from "flowbite-react";
 import ChatWithFoodBank from "./pages/ChatWithFoodBank";
 import Authlayout from "./layout/Authlayout";
 
@@ -19,7 +18,7 @@ function App() {
   return (
     <div className="w-full min-h-screen ">
       {loading && (
-        <div className="w-full h-screen top-0 fixed left-0 z-[999] bg-black/30 flex items-center justify-center"> 
+        <div className="w-full h-screen top-0 fixed left-0 z-[999] bg-black/30 flex items-center justify-center">
           <Spinner
             color="success"
             size={"xl"}
@@ -39,11 +38,11 @@ function App() {
         <Route
           path="/dashboard-2"
           element={
-            // <PublicRoute>
+            <Authlayout>
               <Dashboard />
-            // </PublicRoute>
+            </Authlayout>
           }
-        /> 
+        />
         <Route
           path="/login"
           element={
@@ -88,7 +87,7 @@ function App() {
           path="/chat/:id"
           element={
             <Authlayout authentication>
-              <ChatWithFoodBank/>
+              <ChatWithFoodBank />
             </Authlayout>
           }
         />

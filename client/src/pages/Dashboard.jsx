@@ -11,11 +11,8 @@ import {
 
 import { HiSearch } from "react-icons/hi";
 import { FaFilter } from "react-icons/fa";
-import Foods from "../data/product.json";
-import { Link } from "react-router-dom/dist";
-import { useState, useEffect } from "react";
-import { ref, set } from 'firebase/database';
-import { database } from '../../firebase/firebase';
+import Foods from "../data/product.json"; 
+import { useState, useEffect } from "react"; 
 import { useDispatch } from "react-redux";
 import { addIngredient } from "@/redux/slice/itemsSlice";
 import { useNavigate } from "react-router-dom";

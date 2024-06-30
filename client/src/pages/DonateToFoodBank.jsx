@@ -45,7 +45,7 @@ export default function Component() {
         <button style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Proceed to Payment</button>
     </div>  `
         try {
-            const { data } = await axios.post('http://localhost:8080/send-email', { email, subject, message })
+            const { data } = await axios.post('https://save-before-spoil.onrender.com/send-email', { email, subject, message })
             console.log(data);
             toast.success('Email sent successfully')
         } catch (error) {

@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Papa from "papaparse";
-import { getDatabase, ref, push, set, onValue } from "firebase/database";
-import { database } from "../../firebase/firebase";
-import { getAuth } from "firebase/auth";
-import { useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import {  ref, push, set, onValue } from "firebase/database";
+import { database } from "../../firebase/firebase"; 
 import "react-toastify/dist/ReactToastify.css";
 import {
   Table,

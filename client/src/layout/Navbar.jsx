@@ -9,20 +9,17 @@ import { logout } from "../redux/slice/authslice";
 import logo from "../assets/img/logo.png";
 
 export default function NavbarComp() {
-  const auth = getAuth();
-  console.log(auth);
+  const auth = getAuth(); 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.userData);
-  console.log(user);
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
         toast.success("Logged out successfully");
         dispatch(logout());
-        navigate("/login");
-        console.log(user);
+        navigate("/login"); 
       })
       .catch((error) => {
         toast.error("Error logging out");
