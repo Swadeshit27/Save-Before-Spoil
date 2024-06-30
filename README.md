@@ -32,42 +32,8 @@ This platform is designed to reduce food waste by connecting shopkeepers/retaile
 - **Email Notifications**: Node Mailer
 - **Location Services**: Google Location APIs for calculating shortest distances to food banks
 
-## Installation and Setup
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/your-repo-url.git
-   cd your-repo-folder
-   ```
 
-2. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Firebase Configuration**:
-   - Set up a Firebase project.
-   - Add your Firebase configuration to `src/firebaseConfig.js`.
-
-4. **Environment Variables**:
-   - Create a `.env` file in the root directory.
-   - Add the following environment variables:
-     ```
-     REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
-     REACT_APP_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
-     REACT_APP_FIREBASE_PROJECT_ID=your_firebase_project_id
-     REACT_APP_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
-     REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
-     REACT_APP_FIREBASE_APP_ID=your_firebase_app_id
-     REACT_APP_GOOGLE_API_KEY=your_google_api_key
-     ```
-
-5. **Run the Application**:
-   ```bash
-   npm start
-   ```
-
-## Usage
 
 ### Shopkeepers/Retailers
 1. **Sign Up**: Register as a Shopkeeper/Retailer.
@@ -124,14 +90,15 @@ This project is a web application developed using React and Vite. It is designed
 - Routing
 - Environment configuration
 
-## Installation
+
+
 
 ### Prerequisites
 
 - Node.js (>= 12.x)
 - npm (>= 6.x) or Yarn (>= 1.x)
 
-### Steps
+## Installation and Setup
 
 1. Clone the repository:
     ```bash
