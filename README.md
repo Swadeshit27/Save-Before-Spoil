@@ -1,7 +1,7 @@
 ## Project Readme
 ![SAVE BEFORE SPOIL](https://github.com/Swadeshit27/Save-Before-Spoil/assets/108950724/8ca6264a-1618-4a45-a1c5-23afa9cd2463)
 
-# Save Before Spoil
+# Save Before Spoil -- Submitted at Hack4Bengal 3.0 by Team S2K2 💖
 ## Food Ingredients Waste Management
 
 
