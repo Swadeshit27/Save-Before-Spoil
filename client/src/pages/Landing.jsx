@@ -16,15 +16,9 @@ function Landing() {
             <span className="text-green-500">Save </span>
             <span>Before </span>
             <span className="text-orange-400">Spoil</span>
-          </h1>
-          <p className="text-lg max-w-2xl mb-8">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-            dolore, laboriosam iure consequatur laudantium minus ex ab dolor
-            esse voluptatem incidunt voluptas, quia modi quisquam. Eos aperiam
-            vel quod veritatis accusamus praesentium enim dolorum nesciunt quas
-            quia fugit ex quaerat obcaecati, ipsum blanditiis ratione quasi
-            porro rem! Delectus atque, voluptates asperiores assumenda ullam sit
-            obcaecati reprehenderit, aperiam nobis laboriosam ab.
+          </h1> 
+          <p className="text-lg max-w-2xl my-8">
+            Welcome to Save Before Spoil! Reduce food waste with our expiration alerts, recipe suggestions, donation connections, and waste analytics. Join us to make smarter food choices and help nourish our communities. Sign up today!
           </p>
           <Button
             className="bg-blue-500 text-white py-2 px-6 rounded-md"

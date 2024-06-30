@@ -8,8 +8,9 @@ import SignUp from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Recipes from "./pages/Recipes";
 import DonateToFoodBank from "./pages/DonateToFoodBank";
-import { useSelector } from "react-redux";
-import { Spinner } from "flowbite-react";
+import { useSelector } from "react-redux"; 
+import FoodBankDashboard from "./pages/FoodBankDashboard";
+import { Spinner } from "flowbite-react"; 
 import ChatWithFoodBank from "./pages/ChatWithFoodBank";
 import Authlayout from "./layout/Authlayout";
 
@@ -43,6 +44,19 @@ function App() {
             </Authlayout>
           }
         />
+        {/* <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/upload" element={<CsvUploader />} /> */}
+        <Route
+          path="/food-bank-dashboard"
+          element={
+            <Authlayout>
+            <FoodBankDashboard />
+            </Authlayout>
+          } 
+          />
+        {/* <Route path="/recipe" */}
         <Route
           path="/login"
           element={

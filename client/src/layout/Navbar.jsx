@@ -71,9 +71,6 @@ export default function NavbarComp() {
         <Navbar.Link href="/" active className={'text-base'}>
           Home
         </Navbar.Link>
-        <Navbar.Link href="/dashboard-1" active className={'text-base'}>
-          Dashboard
-        </Navbar.Link>
         <Navbar.Link href="#" className={'text-base'}>Services</Navbar.Link>
         <Navbar.Link href="#" className={'text-base'}>Pricing</Navbar.Link>
         <Navbar.Link href="#" className={'text-base'}>About</Navbar.Link>
