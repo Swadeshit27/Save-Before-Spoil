@@ -20,14 +20,9 @@ import { useDispatch } from "react-redux";
 import { addIngredient } from "@/redux/slice/itemsSlice";
 import { useNavigate } from "react-router-dom";
 import { SlGraph } from "react-icons/sl";
+import { daysLeft, reducedPrice } from "@/utils/CommonFn";
 
-function daysLeft(expireDateString) {
-    const expireDate = new Date(expireDateString);
-    const currentDate = new Date();
-    const timeDifference = expireDate.getTime() - currentDate.getTime();
-    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
-    return daysDifference;
-}
+
 
 const Dashboard = () => {
     const [start, setStart] = useState(0);
@@ -37,14 +32,6 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const reducedPrice = (price, daysLeft) => {
-        if (daysLeft < 30) {
-            const discountFactor = Math.max(0.4, daysLeft / 30);
-            let newPrice = price * discountFactor;
-            return Math.round(newPrice);
-        }
-        return price;
-    };
 
     const handelSelect = (checked, value) => {
         if (checked) {
@@ -130,7 +117,7 @@ const Dashboard = () => {
                                 {Foods.filter(ele => ele.name.toLowerCase().includes(searchVal.toLowerCase())).slice(start, end).map((food, index) => {
                                     const { name, price, expireDate, inStockQuantity } = food;
                                     return (
-                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={index}>
                                             <Table.Cell >
                                                 <Checkbox onChange={(e) => handelSelect(e.target.checked, food)} />
                                             </Table.Cell>

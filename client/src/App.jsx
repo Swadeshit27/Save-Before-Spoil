@@ -3,7 +3,6 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Dashboardnew from "./pages/Dashboardnew";
 import Landing from "./pages/Landing";
-import Wrapper from "./layout/Wrapper";
 import CsvUploader from "./pages/CsvUploader";
 import SignUp from "./pages/Signup";
 import Profile from "./pages/Profile";
@@ -11,8 +10,8 @@ import Recipes from "./pages/Recipes";
 import Options from "./pages/Options";
 import DonateToFoodBank from "./pages/DonateToFoodBank";
 import { useSelector } from "react-redux";
-import { Spinner } from "flowbite-react";
-import PublicRoute from "./components/PublicRoute";
+import { Spinner } from "flowbite-react"; 
+import ChatWithFoodBank from "./pages/ChatWithFoodBank";
 import Authlayout from "./layout/Authlayout";
 
 function App() {
@@ -40,11 +39,11 @@ function App() {
         <Route
           path="/dashboard-2"
           element={
-            <Authlayout>
+            // <PublicRoute>
               <Dashboard />
-            </Authlayout>
+            // </PublicRoute>
           }
-        />
+        /> 
         <Route
           path="/login"
           element={
@@ -89,7 +88,7 @@ function App() {
           path="/chat/:id"
           element={
             <Authlayout authentication>
-              <C />
+              <ChatWithFoodBank/>
             </Authlayout>
           }
         />

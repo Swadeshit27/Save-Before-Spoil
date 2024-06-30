@@ -21,6 +21,7 @@ const itemsSlice = createSlice({
             else state.items.push(action.payload)
         },
         addIngredient: (state, action) => {
+            console.log(action.payload)
             state.ingredients = action.payload;
         },
         emptyIngredients: (state) => {
